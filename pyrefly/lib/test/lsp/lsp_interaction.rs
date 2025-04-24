@@ -366,6 +366,10 @@ fn test_go_to_def(
         }),
     }));
 
+    eprintln!("{root:?}");
+    eprintln!("{:?}", root.path());
+    eprintln!("{:?}", root.path().join("foo.py"));
+    eprintln!("{:?}",  Url::from_file_path(root.path().join("bar.py")).unwrap());
     expected_responses.push(Message::Response(Response {
         id: RequestId::from(2),
         result: Some(serde_json::json!({
@@ -394,6 +398,7 @@ fn test_go_to_def(
 #[test]
 fn test_go_to_def_single_root() {
     let root = get_test_files_root();
+    eprintln!("ROOT {root:?}");
     test_go_to_def(
         &root,
         Some(vec![("test", Url::from_file_path(root.path()).unwrap())]),
